@@ -13,16 +13,16 @@ namespace TechJobsPersistent.Controllers
 {
     public class EmployerController : Controller
     {
-        private JobDbContext jobContext;
+        private JobDbContext context;
 
         public EmployerController (JobDbContext dbContext)
         {
-            jobContext = dbContext;
+            context = dbContext;
         }
 
         public IActionResult Index()
         {
-            List<Employer> employers = jobContext.Employers.ToList();
+            List<Employer> employers = context.Employers.ToList();
             return View(employers);
         }
 
@@ -42,8 +42,8 @@ namespace TechJobsPersistent.Controllers
                     Location = addEVM.Location
                 };
 
-                jobContext.Employers.Add(employerObj);
-                jobContext.SaveChanges();
+                context.Employers.Add(employerObj);
+                context.SaveChanges();
                 return Redirect("Employer");
             }
             return View("Add", addEVM);
@@ -51,7 +51,7 @@ namespace TechJobsPersistent.Controllers
 
         public IActionResult About(int id)
         {
-            Employer employer = jobContext.Employers.Find(id);
+            Employer employer = context.Employers.Find(id);
             return View(employer);
         }
     }
